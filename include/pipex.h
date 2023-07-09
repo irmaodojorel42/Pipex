@@ -15,7 +15,7 @@
 
 /*********************BIBLIOTECAS*********************/
 
-# include "../libft/libft.h"
+# include "../mylibft/libft.h"
 # include <errno.h> /*biblioteca pra erro*/
 # include <fcntl.h> /*para dar open e close*/
 # include <stdio.h> /*pipe*/

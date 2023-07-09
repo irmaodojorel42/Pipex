@@ -25,20 +25,20 @@ all: $(NAME)
 	@echo "$(GREEN)ok...pipex done!$(DEFAULT)"
 
 $(NAME): $(OBJS)
-	@echo "$(ORANGE)Compiling libraries...$(DEFAULT)"
-	@make -C ./libft
-	@mv ./libft/$(LIBFT) .
+	@echo "$(GREEN)Compiling libraries...$(DEFAULT)"
+	@make -C ./mylibft
+	@mv ./mylibft/$(LIBFT) .
 	@cc $(CFLAGS) $(OBJS) -L. $(LIBFT) -o $(NAME)
 
 clean:
-	@make clean -C ./libft
+	@make clean -C ./mylibft
 	@rm -f $(LIBFT)
 	@rm -f $(BNS_OBJS)
 	@rm -f $(OBJS)
 
 fclean: clean
 	@rm -f $(NAME)
-	@echo "$(ORANGE)Cleaning...yup, that's it!$(DEFAULT)"
+	@echo "$(GREEN)Cleaning...yup, that's it!$(DEFAULT)"
 
 re: fclean all
 
