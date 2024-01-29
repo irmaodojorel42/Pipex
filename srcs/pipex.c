@@ -14,6 +14,7 @@
 
 void	error(void)
 {
+	//caso o run nao function limpar todos os ** ou * ou **** execve quando da erro nao apaga a memoria
 	perror("error");
 	exit(EXIT_FAILURE);
 }

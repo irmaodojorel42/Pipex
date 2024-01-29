@@ -24,7 +24,7 @@ char	*check_path(char **path, char *cmd)
 		temp = ft_strjoin(path[i], "/");
 		cmd_path = ft_strjoin(temp, cmd);
 		free(temp);
-		if (access(cmd_path, F_OK) != -1)
+		if (access(cmd_path, F_OK) != -1 && access(cmd_path, R_OK))
 			return (cmd_path);
 		free(cmd_path);
 	}

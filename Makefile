@@ -19,7 +19,7 @@ SRCS =	./srcs/pipex.c \
 
 OBJS :=$(SRCS:.c=.o)
 
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g 
 
 all: $(NAME)
 	@echo "$(GREEN)ok...pipex done!$(DEFAULT)"
