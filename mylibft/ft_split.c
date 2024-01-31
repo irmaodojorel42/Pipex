@@ -27,14 +27,15 @@ static int	sizema(const char *s, char c)
 	return (size);
 }
 
-static char	*word(char const *s, char *new, char c)
+static char	*word(char const *s, char c)
 {
 	int	i;
+	char	*new;
 
 	i = 0;
 	while (s[i] != c && s[i] != '\0')
 		i++;
-	new = malloc(sizeof(char) * i + 1);
+	new = (char *)malloc(sizeof(char) * (i + 1));
 	if (new == NULL)
 		return (NULL);
 	i = -1;
@@ -59,7 +60,7 @@ char	**ft_split(char const *s, char c)
 	{
 		if (s[i] != c)
 		{
-			new[w] = word(&s[i], new[w], c);
+			new[w] = word(&s[i], c);
 			w++;
 			while (s[i] != c && s[i] != '\0')
 				i++;

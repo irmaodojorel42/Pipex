@@ -12,6 +12,19 @@
 
 #include "../include/pipex.h"
 
+void	ft_split_free(char **split_result)
+{
+    size_t	i;
+
+    i = 0;
+    while (split_result[i])
+    {
+        free(split_result[i]);
+        i++;
+    }
+    free(split_result);
+}
+
 char	*check_path(char **path, char *cmd)
 {
 	int		i;
@@ -43,6 +56,7 @@ char	*command(char *cmd, char **env)
 		i++;
 	path = ft_split(&env[i][5], ':');
 	cmd_path = check_path(path, cmd);
+	ft_split_free(path);
 	return (cmd_path);
 }
 
@@ -63,6 +77,8 @@ void	process(char **argv, int *pipefd, char **env, int process_nbr)
 	int	file1;
 	int	file2;
 
+	file1 = -1;
+	file2 = -1;
 	if (process_nbr == 1)
 	{
 		file1 = open(argv[1], O_RDONLY);
@@ -71,7 +87,6 @@ void	process(char **argv, int *pipefd, char **env, int process_nbr)
 		close(pipefd[0]);
 		dup2(file1, STDIN_FILENO);
 		dup2(pipefd[1], STDOUT_FILENO);
-		close(file1);
 		run(argv[2], env);
 	}
 	else
@@ -82,7 +97,7 @@ void	process(char **argv, int *pipefd, char **env, int process_nbr)
 		dup2(pipefd[0], STDIN_FILENO);
 		close(pipefd[0]);
 		dup2(file2, STDOUT_FILENO);
-		close(file2);
 		run(argv[3], env);
 	}
+    cleanup(pipefd, file1, file2);
 }

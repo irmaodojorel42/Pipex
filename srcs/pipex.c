@@ -18,12 +18,27 @@ void	error(void)
 	exit(EXIT_FAILURE);
 }
 
+void cleanup(int *pipefd, int file1, int file2) 
+{
+    close(pipefd[0]);
+    close(pipefd[1]);
+    if (file1 >= 0)
+		close(file1);
+    if (file2 >= 0)
+		close(file2);
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	int		pipefd[2];
 	pid_t	pid;
 	pid_t	pid2;
 	int		status;
+	int		file1;
+	int		file2;
+
+	file1 = -1;
+	file2 = -1;
 
 	if (argc != 5)
 		exit(write(2, "Error, insert 5 arguments\n", 27));
@@ -42,6 +57,7 @@ int	main(int argc, char **argv, char **env)
 		process(argv, pipefd, env, 2);
 	close(pipefd[0]);
 	waitpid(-1, &status, 0);
+	cleanup(pipefd, file1, file2);
 	return (WEXITSTATUS(status));
 }
 
