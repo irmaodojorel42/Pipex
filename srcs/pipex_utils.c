@@ -14,7 +14,7 @@
 
 void	ft_split_free(char **split_result)
 {
-    size_t	i;
+    int	i;
 
     i = 0;
     while (split_result[i])
@@ -41,6 +41,7 @@ char	*check_path(char **path, char *cmd)
 			return (cmd_path);
 		free(cmd_path);
 	}
+	ft_split_free(path);
 	write(2, "Error, Command invalid\n", 24);
 	exit(127);
 }
@@ -69,7 +70,11 @@ void	run(char *cmd, char **env)
 	cmd = list_cmd[0];
 	path = command(cmd, env);
 	if (execve(path, list_cmd, env) == -1)
+	{
+		ft_split_free(list_cmd);
 		error();
+	}
+	ft_split_free(list_cmd);
 }
 
 void	process(char **argv, int *pipefd, char **env, int process_nbr)
