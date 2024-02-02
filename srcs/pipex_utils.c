@@ -14,7 +14,7 @@
 
 void	ft_split_free(char **split_result)
 {
-    int	i;
+    size_t	i;
 
     i = -1;
     while (split_result[++i])
@@ -116,3 +116,5 @@ void	process(char **argv, int *pipefd, char **env, int process_nbr)
 	}
     cleanup(pipefd, file1, file2);
 }
+
+void	teste(erro);
