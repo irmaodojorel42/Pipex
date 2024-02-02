@@ -12,64 +12,81 @@
 
 #include "libft.h"
 
-static int	sizema(const char *s, char c)
+static int	ft_word_count(char *str, char charset)
 {
 	int	i;
-	int	size;
+	int	word_count;
 
-	i = -1;
-	size = 0;
-	while (s[++i] != '\0')
+	word_count = 0;
+	i = 0;
+	while (str[i])
 	{
-		if ((s[i] != c) && (s[i + 1] == c || s[i + 1] == '\0'))
-			size++;
+		while (str[i] && str[i] == charset)
+			i++;
+		if (str[i] != '\0')
+			word_count++;
+		while (str[i] != '\0' && str[i] != charset)
+			i++;
 	}
-	return (size);
+	return (word_count);
 }
 
-static char	*word(char const *s, char c)
+static int	ft_wordlen(char *str, char charset)
 {
 	int	i;
-	char	*new;
 
 	i = 0;
-	while (s[i] != c && s[i] != '\0')
+	while (str[i] != '\0' && str[i] != charset)
 		i++;
-	new = (char *)malloc(sizeof(char) * (i + 1));
-	if (new == NULL)
+	return (i);
+}
+
+static char	*ft_word(char *str, char charset)
+{
+	int		len_word;
+	int		i;
+	char	*word;
+
+	i = 0;
+	len_word = ft_wordlen(str, charset);
+	word = (char *)malloc(sizeof(char) * (len_word + 1));
+	if (!word)
 		return (NULL);
-	i = -1;
-	while (s[++i] != '\0' && s[i] != c)
-		new[i] = s[i];
-	new[i] = '\0';
-	return (new);
+	while (i < len_word)
+	{
+		word[i] = str[i];
+		i++;
+	}
+	word[i] = '\0';
+	return (word);
 }
 
 char	**ft_split(char const *s, char c)
 {
+	char	**strings;
 	int		i;
-	int		w;
-	char	**new;
+	int		j;
 
-	new = (char **)malloc(sizeof(char *) * (sizema(s, c) + 1));
-	if (new == NULL)
-		return (NULL);
 	i = 0;
-	w = 0;
-	while (s[i] != '\0')
+	j = 0;
+	strings = (char **)malloc(sizeof(char *) * (ft_word_count((char *)s, c)
+				+ 1));
+	if (!s || !strings)
+		return (0);
+	while (s[j] != '\0')
 	{
-		if (s[i] != c)
+		while (s[j] != '\0' && s[j] == c)
+			j++;
+		if (s[j] != '\0')
 		{
-			new[w] = word(&s[i], c);
-			w++;
-			while (s[i] != c && s[i] != '\0')
-				i++;
-		}
-		else
+			strings[i] = ft_word((char *)&s[j], c);
 			i++;
+		}
+		while (s[j] != '\0' && s[j] != c)
+			j++;
 	}
-	new[w] = NULL;
-	return (new);
+	strings[i] = 0;
+	return (strings);
 }
 
 /*int main(void)

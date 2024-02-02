@@ -56,7 +56,8 @@ int	main(int argc, char **argv, char **env)
 	if (pid2 == 0)
 		process(argv, pipefd, env, 2);
 	close(pipefd[0]);
-	waitpid(-1, &status, 0);
+	//waitpid(-1, &status, 0);
+	waitpid(pid2, &status, 0);
 	cleanup(pipefd, file1, file2);
 	return (WEXITSTATUS(status));
 }
