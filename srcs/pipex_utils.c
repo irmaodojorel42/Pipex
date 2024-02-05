@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 20:42:11 by marvin            #+#    #+#             */
-/*   Updated: 2024/02/05 19:25:11 by ceribeir         ###   ########.fr       */
+/*   Updated: 2023/06/04 20:42:11 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 void	ft_split_free(char **split_result)
 {
-	int	i;
+    int	i;
 
 	if (split_result)
 	{
-		i = -1;
-		while (split_result[++i])
-			free(split_result[i]);
-		free(split_result);
+    	i = -1;
+   		while (split_result[++i])
+       		free(split_result[i]);
+    	free(split_result);
 	}
 }
 
@@ -45,7 +45,7 @@ char	*check_path(char **path, char *cmd)
 		free(cmd_path);
 	}
 	write(2, "Error, Command invalid\n", 24);
-	return (NULL);
+	return(NULL);
 }
 
 char	*command(char *cmd, char **env)
@@ -109,4 +109,5 @@ void	process(char **argv, int *pipefd, char **env, int process_nbr)
 		dup2(file2, STDOUT_FILENO);
 		run(argv[3], env);
 	}
+    cleanup(pipefd, file1, file2);
 }

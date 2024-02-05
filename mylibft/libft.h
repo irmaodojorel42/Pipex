@@ -6,7 +6,7 @@
 /*   By: ceribeir <ceribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 20:35:29 by ceribeir          #+#    #+#             */
-/*   Updated: 2024/02/05 19:16:25 by ceribeir         ###   ########.fr       */
+/*   Updated: 2023/04/14 23:32:39 by ceribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strnstr(const char	*big, const char *little, size_t len);
 
-/********************FUNCTIONS# include <stdarg.h>********************/
+/********************FUNCTIONS# include <stdarg.h>_VOID_TYPE********************/
 
 void	*ft_bzero(void *s, size_t n);
 void	ft_putnbr_fd(int nb, int fd);
