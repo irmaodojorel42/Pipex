@@ -6,7 +6,7 @@
 /*   By: ceribeir <ceribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 20:33:01 by ceribeir          #+#    #+#             */
-/*   Updated: 2023/04/13 20:33:01 by ceribeir         ###   ########.fr       */
+/*   Updated: 2024/02/05 19:18:22 by ceribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	sizema(const char *s, char c)
 
 static char	*word(char const *s, char c)
 {
-	int	i;
+	int		i;
 	char	*new;
 
 	i = 0;

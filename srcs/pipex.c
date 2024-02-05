@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 20:42:14 by marvin            #+#    #+#             */
-/*   Updated: 2023/06/04 20:42:14 by marvin           ###   ########.fr       */
+/*   Updated: 2024/02/05 19:21:41 by ceribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ void	error(void)
 	exit(EXIT_FAILURE);
 }
 
-void cleanup(int *pipefd, int file1, int file2) 
+void	cleanup(int *pipefd, int file1, int file2)
 {
-    close(pipefd[0]);
-    close(pipefd[1]);
-    if (file1 >= 0)
+	close(pipefd[0]);
+	close(pipefd[1]);
+	if (file1 >= 0)
 		close(file1);
-    if (file2 >= 0)
+	if (file2 >= 0)
 		close(file2);
 }
 
@@ -63,4 +63,3 @@ int	main(int argc, char **argv, char **env)
 	waitpid(-1, &status, 0);
 	return (WEXITSTATUS(status));
 }
-

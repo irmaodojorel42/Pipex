@@ -6,7 +6,7 @@
 /*   By: ceribeir <ceribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 19:01:44 by ceribeir          #+#    #+#             */
-/*   Updated: 2023/04/16 19:12:07 by ceribeir         ###   ########.fr       */
+/*   Updated: 2024/02/05 19:29:24 by ceribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	ft_putnbr(int n)
 }
 
 int	ft_check(unsigned long int n, int type)
-{	
+{
 	int	c;
 
 	c = 0;

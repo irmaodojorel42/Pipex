@@ -6,7 +6,7 @@
 /*   By: ceribeir <ceribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 20:28:50 by ceribeir          #+#    #+#             */
-/*   Updated: 2023/04/13 20:28:50 by ceribeir         ###   ########.fr       */
+/*   Updated: 2024/02/05 19:27:28 by ceribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_atoi(const char *src)
 	s = 1;
 	n = 0;
 	while (src[i] == ' ' || (src[i] >= 9 && src[i] <= 13))
-			i++;
+		i++;
 	if (src[i] == '+' || src[i] == '-')
 	{
 		if (src[i] == '-')
