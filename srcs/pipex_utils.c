@@ -109,5 +109,4 @@ void	process(char **argv, int *pipefd, char **env, int process_nbr)
 		dup2(file2, STDOUT_FILENO);
 		run(argv[3], env);
 	}
-    cleanup(pipefd, file1, file2);
 }
