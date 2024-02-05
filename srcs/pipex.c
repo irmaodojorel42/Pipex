@@ -18,25 +18,6 @@ void	error(void)
 	exit(EXIT_FAILURE);
 }
 
-void cleanup(int *pipefd, int file1, int file2) 
-{
-    close(pipefd[0]);
-    close(pipefd[1]);
-    if (file1 >= 0)
-		close(file1);
-    if (file2 >= 0)
-		close(file2);
-}
-
-void	cleanup_error(int *pipefd, int file)
-{
-	close(pipefd[0]);
-	close(pipefd[1]);
-	if (file >= 0)
-		close(file);
-	error();
-}
-
 int	main(int argc, char **argv, char **env)
 {
 	int		pipefd[2];

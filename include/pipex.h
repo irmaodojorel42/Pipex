@@ -21,7 +21,6 @@
 # include <stdio.h> /*pipe*/
 # include <stdlib.h> /*env*/
 # include <sys/wait.h> /*biblioteca pro fork, waitpid*/
-# include <sys/types.h>
 # include <unistd.h> /*write, dup2*/
 
 /*********************FUNCTIONS*********************/
@@ -31,7 +30,5 @@ char	*check_path(char **path, char *cmd);
 char	*command(char *cmd, char **env);
 void	run(char *cmd, char **env);
 void	process(char **argv, int *pipefd, char **env, int process_nbr);
-void	cleanup(int *pipefd, int file1, int file2);
-void	cleanup_error(int *pipefd, int file);
 
 #endif
