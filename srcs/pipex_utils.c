@@ -16,12 +16,13 @@ void	ft_split_free(char **split_result)
 {
     int	i;
 
-    i = -1;
-    while (split_result[++i])
+	if (split_result)
 	{
-        free(split_result[i]);
+    	i = -1;
+   		while (split_result[++i])
+       		free(split_result[i]);
+    	free(split_result);
 	}
-    free(split_result);
 }
 
 char	*check_path(char **path, char *cmd)
@@ -37,12 +38,14 @@ char	*check_path(char **path, char *cmd)
 		cmd_path = ft_strjoin(temp, cmd);
 		free(temp);
 		if (access(cmd_path, F_OK) != -1)
+		{
+			ft_split_free(path);
 			return (cmd_path);
+		}
 		free(cmd_path);
 	}
-	ft_split_free(path);
 	write(2, "Error, Command invalid\n", 24);
-	exit(127);
+	return(NULL);
 }
 
 char	*command(char *cmd, char **env)
@@ -67,16 +70,17 @@ void	run(char *cmd, char **env)
 
 	list_cmd = ft_split(cmd, ' ');
 	cmd = list_cmd[0];
+	if (!env)
+		error();
 	path = command(cmd, env);
-	if (execve(path, list_cmd, env) == -1)
+	if (!path || execve(path, list_cmd, env) == -1)
 	{
 		ft_split_free(list_cmd);
-		free(cmd);
-		free(path);
-		error();
+		if (path)
+			error();
+		else
+			exit(write(2, "Error\n", 7));
 	}
-	free(cmd);
-	free(path);
 	ft_split_free(list_cmd);
 }
 
@@ -85,13 +89,11 @@ void	process(char **argv, int *pipefd, char **env, int process_nbr)
 	int	file1;
 	int	file2;
 
-	file1 = -1;
-	file2 = -1;
 	if (process_nbr == 1)
 	{
 		file1 = open(argv[1], O_RDONLY);
 		if (file1 < 0)
-			error();
+			cleanup_error(pipefd, file1);
 		close(pipefd[0]);
 		dup2(file1, STDIN_FILENO);
 		dup2(pipefd[1], STDOUT_FILENO);
@@ -101,7 +103,7 @@ void	process(char **argv, int *pipefd, char **env, int process_nbr)
 	{
 		file2 = open(argv[4], O_TRUNC | O_CREAT | O_WRONLY, 0644);
 		if (file2 < 0)
-			error();
+			cleanup_error(pipefd, file2);
 		dup2(pipefd[0], STDIN_FILENO);
 		close(pipefd[0]);
 		dup2(file2, STDOUT_FILENO);
