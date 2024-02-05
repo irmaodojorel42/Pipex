@@ -33,5 +33,6 @@ void	run(char *cmd, char **env);
 void	process(char **argv, int *pipefd, char **env, int process_nbr);
 void	cleanup(int *pipefd, int file1, int file2);
 void	cleanup_error(int *pipefd, int file);
+void	ft_split_free(char **split_result);
 
 #endif

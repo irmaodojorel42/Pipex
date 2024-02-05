@@ -17,6 +17,16 @@ void	error(void)
 	perror("error");
 	exit(EXIT_FAILURE);
 }
+ 
+void cleanup(int *pipefd, int file1, int file2) 
+{
+    close(pipefd[0]);
+    close(pipefd[1]);
+    if (file1 >= 0)
+		close(file1);
+    if (file2 >= 0)
+		close(file2);
+}
 
 int	main(int argc, char **argv, char **env)
 {
@@ -41,6 +51,7 @@ int	main(int argc, char **argv, char **env)
 	if (pid2 == 0)
 		process(argv, pipefd, env, 2);
 	close(pipefd[0]);
+	waitpid(-1, &status, 0);
 	waitpid(-1, &status, 0);
 	return (WEXITSTATUS(status));
 }

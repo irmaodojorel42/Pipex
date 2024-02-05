@@ -12,6 +12,16 @@
 
 #include "../include/pipex.h"
 
+void	ft_split_free(char **split_result)
+{
+	size_t	i;
+
+	i = -1;
+	while (split_result[++i])
+		free(split_result[i]);
+	free(split_result);
+}
+
 char	*check_path(char **path, char *cmd)
 {
 	int		i;
@@ -25,11 +35,14 @@ char	*check_path(char **path, char *cmd)
 		cmd_path = ft_strjoin(temp, cmd);
 		free(temp);
 		if (access(cmd_path, F_OK) != -1)
+		{
+			ft_split_free(path);
 			return (cmd_path);
+		}
 		free(cmd_path);
 	}
 	write(2, "Error, Command invalid\n", 24);
-	exit(127);
+	return (NULL);
 }
 
 char	*command(char *cmd, char **env)
