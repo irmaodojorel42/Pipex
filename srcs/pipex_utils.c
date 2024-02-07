@@ -35,10 +35,7 @@ char	*check_path(char **path, char *cmd)
 		cmd_path = ft_strjoin(temp, cmd);
 		free(temp);
 		if (access(cmd_path, F_OK) != -1)
-		{
-			ft_split_free(path);
 			return (cmd_path);
-		}
 		free(cmd_path);
 	}
 	write(2, "Error, Command invalid\n", 24);
@@ -52,10 +49,11 @@ char	*command(char *cmd, char **env)
 	char	*cmd_path;
 
 	i = 0;
-	while (ft_strncmp(env[i], "PATH=", 5))
+	while (ft_strncmp(env[i], "PATH=", 5) && env[i] != NULL)
 		i++;
 	path = ft_split(&env[i][5], ':');
 	cmd_path = check_path(path, cmd);
+	ft_split_free(path);
 	return (cmd_path);
 }
 
@@ -67,8 +65,15 @@ void	run(char *cmd, char **env)
 	list_cmd = ft_split(cmd, ' ');
 	cmd = list_cmd[0];
 	path = command(cmd, env);
-	if (execve(path, list_cmd, env) == -1)
-		error();
+	if (!path || execve(path, list_cmd, env) == -1)
+	{
+		ft_split_free(list_cmd);
+		if (path)
+			error();
+		else
+			exit(write(2, "Error\n", 7));
+	}
+	ft_split_free(list_cmd);
 }
 
 void	process(char **argv, int *pipefd, char **env, int process_nbr)
